@@ -25,7 +25,7 @@ SYSTEM = WMD Input
  EDIFF = 1E-06     (SCF energy convergence; eV) 
  ISPIN =  1        (Closed shell DFT)
  !!ISPIN = 2       (Spin polarised DFT)
- GGA     =  PS     (PBEsol exchange-correlation)
+ GGA     =  PE     (Perdew-Burke-Ernzerhof exchange-correlation)
  ADDGRID = .TRUE.  (Increase grid; helps GGA convergence) 
  !!LASPH = .TRUE.  (Non-spherical elements; d/f convergence)
 
