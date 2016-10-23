@@ -36,8 +36,11 @@ SYSTEM = WMD Input
  IBRION =      1     (Algorithm: 0-MD; 1-Quasi-New; 2-CG)
  ISIF   =      3     (Stress/relaxation: 2-Ions, 3-Shape/Ions/V, 7-Vol)
  ISYM   =      2     (Symmetry: 0=none; 2=GGA; 3=hybrids) 
- ISMEAR =      0     (Gaussian smearing; metals:1)
- SIGMA  =      0.01  (Smearing value in eV; metals:0.2)
+ ISMEAR =      0     (0-Gaussian smearing)
+                     (metal: 1 or 2)
+                     (semiconductors/insulators: -5; for large cell (k-points <=2 : 0))
+ SIGMA  =      0.01  (Smearing value in eV)
+                     (metals:0.2 (keep T*S < 1 meV/atom, otherwise reduce SIGMA))
 
 !Miscellaneous:
  LORBIT    =   10     (PAW radii for projected DOS)
