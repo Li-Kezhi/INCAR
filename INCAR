@@ -2,7 +2,7 @@ SYSTEM = WMD Input
 
 !Initialisation:
  NWRITE = 2        (Medium-level output)   
- ISTART = 1        (Read existing wavefunction; if there) 
+ ISTART = 1        (Read existing wavefunction; otherwise 0 for a new start) 
  INIWAV = 1        (Random initial wavefunction; otherwise)
  ICORELEVEL = 1    (Print core levels)
  !!ICHARG   = 11   (Non-self-consistent: GGA/LDA band structures)
