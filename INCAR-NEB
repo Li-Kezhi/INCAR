@@ -1,0 +1,105 @@
+SYSTEM = init
+
+!Initialisation:
+ NWRITE = 2        (Medium-level output)   
+ ISTART = 0        (Read existing wavefunction; otherwise 0 for a new start) 
+ INIWAV = 1        (Random initial wavefunction; otherwise)
+ ICORELEVEL = 1    (Print core levels)
+ !!ICHARG   = 11   (Non-self-consistent: GGA/LDA band structures)
+ !!NELECT   = 352  (No. of electrons: charged cells; be careful)
+ !!NBANDS   = 35   (No. of bands)
+
+!Parallelisation: 
+ LPLANE   = .TRUE. (Real space distribution; supercells)
+ NPAR   = 2      (Max is no. nodes; don't set for hybrids)
+ !!KPAR   = 2      (Divides k-grid into separate groups)
+
+!Electronic Relaxation:
+ PREC  = Medium  (Precision level)
+ LREAL = Auto      (Projection operators: automatic)
+ !!LREAL = .FALSE. (Accurate forces for phonon calculations)
+ ALGO  = FAST      (SCF minimisation algorithm; 38/48 combo)
+ IALGO = 48        (When ALGO = FAST, else IALGO = 38)
+ ENMAX = 500.00 eV (Plane-wave cutoff) 
+ NELM  = 50        (Max SCF steps)   
+ NELMIN = 5        (Min SCF steps)
+ EDIFF = 1E-06     (SCF energy convergence; eV) 
+ !!ISPIN =  1        (Closed shell DFT)
+ ISPIN = 2       (Spin polarised DFT)
+ GGA     =  PE     (Perdew-Burke-Ernzerhof exchange-correlation)
+ ADDGRID = .TRUE.  (Increase grid; helps GGA convergence) 
+ !!LASPH = .TRUE.  (Non-spherical elements; d/f convergence)
+
+!Ionic Relaxation:
+ EDIFFG =  -0.05    (Ionic convergence; eV/AA)
+ NSW    =    200     (Max ionic steps) 
+ NBLOCK =      1     (Update XDATCAR every X steps) 
+ !IBRION =     1     (Algorithm: replaced by vtst)
+ ISIF   =      2     (Stress/relaxation: 2-Ions, 3-Shape/Ions/V, 7-Vol)
+ ISYM   =      2     (Symmetry: 0=none; 2=GGA; 3=hybrids) 
+ ISMEAR =      2     (0-Gaussian smearing)
+                     (metal: 1 or 2)
+                     (semiconductors/insulators: -5; for large cell (k-points <=2 : 0))
+ SIGMA  =      0.2  (Smearing value in eV)
+                     (metals:0.2 (keep T*S < 1 meV/atom, otherwise reduce SIGMA))
+
+!Miscellaneous:
+ LORBIT    =   10     (PAW radii for projected DOS)
+ !!LORBIT  =    1     (Supply radii for projected DOS)
+ !!RWIGS   =  1.5 1.5 (Radii for each atomic species)  
+ !!LOPTICS = .TRUE.   (Dielectric functions)
+ NEDOS     =  1000    (DOSCAR points)
+ !!LVTOT   = .TRUE.   (Electrostatic potential)
+ !!LELF    = .TRUE.   (Localisation function)
+ !!NGX     = 500      (FFT grid mesh density; nice plots)
+ !!NGY     = 500      (FFT grid mesh density)
+ !!NGZ     = 500      (FFT grid mesh density)
+ 
+!Decomposed Charge Density:
+ !!LPARD = .TRUE. (Generate PARCHG)
+ !!EINT  = -10 0  (Energy range)
+ !!NBMOD =  -3    (With reference to Ef)
+ !!KPUSE =  1     (Over k-points)
+ !!IBAND =  20    (Over bands)
+ 
+!Magnetic Calculations:
+ !!MAGMOM  = 5 0     (Initial magnetic momoment on each ion)
+ !!NUPDOWN = -1      (Enforce spin multiplet)
+ !!LSORBIT = .TRUE.  (Spin-orbit coupling)
+
+!DFT+U Calculations:
+ !!LDAU    = .TRUE. (Activate DFT+U)
+ !!LDATYPE = 2      (Dudarev; only U-J matters)
+ !!LDAUL   = 2 -1   (Orbitals for each species) 
+ !!LDAUU   = 2  0   (U for each species)
+ !!LDAUJ   = 0  0   (J for each species) 
+ !!LMAXMIX =  4     (Mixing cut-off; 4-d, 6-f)
+
+!Hybrid-DFT Calculations: 
+ !!LHFCALC  = .TRUE. (Activate HF)
+ !!PRECFOCK = Fast  (HF FFT grid)
+ !!NKRED    = 2      (Reduce k-grid-even only)
+ !!ALGO     = DAMPED (Dampened MD SCF; IALGO=53)
+ !!ALGO     = All    (SCF Combo; ALGO=58)
+ !!TIME     = 0.30   (Timestep for IALGO5X)  
+ !!HFLMAX   = 4      (HF cut-off: 4d,6f) 
+ !!HFSCREEN = 0.207 (Switch to screened exchange; e.g. HSE06)
+ !!AEXX     = 0.25   (25% HF exchange; e.g. PBE0)
+ !!LDIAG    = .True. (Diagnolise Eigenvalues)
+ 
+!Molecular Dynamics:
+ !!POTIM  =       1    (Timestep in fs)
+ !!TEBEG  =     100    (Start temp K)
+ !!TEEND  =     100    (End temp K)
+ !!SMASS  =       0    (Canonical ensemble)
+
+!NEB
+ IBRION  = 3       (vtst algorithm)
+ POTIM   = 0       (vtst algorithm)
+ IOPT    = 7       (7:suggested, FIRE-fast inertial relaxation engine)
+                   (1:LBFGS, 2:CG -> accurate forces are available)
+                   (3:QM - quick-min -> far from minimum or inaccurate forces)
+ ICHAIN  = 0       (0:default, nudged elastic band)
+ LCLIMB  = .TRUE.
+ SPRING  = -5      (default: -5; spring constant)
+ IMAGES  = 3
